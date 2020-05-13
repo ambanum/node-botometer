@@ -135,7 +135,7 @@ const botometer = function(config) {
     const scores = [];
     for (let screen_name of screen_names) {
       writeLog("Awaiting score for "+screen_name);
-      const data = await this.getBotScore({ screen_name });
+      const data = await this.getBotScore({ screenName: screen_name });
       if (data && typeof data.botometer.scores !== "undefined") {
         scores.push(data);
         writeLog(screen_name+" is a "+data.botometer.scores.universal);
