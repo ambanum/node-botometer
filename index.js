@@ -55,8 +55,9 @@ const botometer = function(config) {
   this.getBotometer = function(data) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        unirest.post("https://osome-botometer.p.mashape.com/2/check_account")
-          .header("X-Mashape-Key", mashape_key)
+        unirest.post("https://botometer-pro.p.rapidapi.com/2/check_account")
+          .header("x-rapidapi-key", mashape_key)
+          .header("x-rapidapi-host", "botometer-pro.p.rapidapi.com")
           .header("Content-Type", "application/json")
           .header("Accept", "application/json")
           .send(data)
