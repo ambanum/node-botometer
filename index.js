@@ -55,7 +55,7 @@ const botometer = function(config) {
   this.getBotometer = function(data) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        unirest.post("https://botometer-pro.p.rapidapi.com/2/check_account")
+        unirest.post("https://botometer-pro.p.rapidapi.com/4/check_account")
           .header("x-rapidapi-key", mashape_key)
           .header("x-rapidapi-host", "botometer-pro.p.rapidapi.com")
           .header("Content-Type", "application/json")
@@ -99,6 +99,7 @@ const botometer = function(config) {
           return this.getBotometer(data);
         })
         .catch(e => {
+          console.error(e);
           // if error on botometer resolve with null
           resolve(null);
         })
@@ -113,7 +114,7 @@ const botometer = function(config) {
           if (!data.user) {
             return resolve(null);
           }
-          
+
           // since we already save full user object,
           // overwrite botometer user prop to keep basic user data
           botometer.user = {
@@ -137,9 +138,9 @@ const botometer = function(config) {
     for (let screen_name of screen_names) {
       writeLog("Awaiting score for "+screen_name);
       const data = await this.getBotScore({ screenName: screen_name });
-      if (data && typeof data.botometer.scores !== "undefined") {
+      if (data && typeof data.botometer.display_scores !== "undefined") {
         scores.push(data);
-        writeLog(screen_name+" is a "+data.botometer.scores.universal);
+        writeLog(screen_name+" is a "+data.botometer.display_scores.universal.overall);
       } else {
         writeLog("No score found for "+screen_name);
       }
